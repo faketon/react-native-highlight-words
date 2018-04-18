@@ -26,23 +26,53 @@ export default function Highlighter({
     ...props
 }) {
     const chunks = findAll({textToHighlight, searchWords, sanitize, autoEscape});
+    var new_chunks = []
+    var index = []
+    var count = 0
+    for (var i = 0; i < chunks.length; i++) {
+      if (chunks[i].highlight == true) {
+        ++count
+        if (count > 1) {
+          chunks[i].highlight = false
+        }
+      }
+    }
 
-    return (
-        <Text style={style} {...props}>
-            {chunks.map((chunk, index) => {
-                const text = textToHighlight.substr(chunk.start, chunk.end - chunk.start);
-
-                return (!chunk.highlight)
-                    ? text
-                    : (
-                        <Text
-                            key={index}
-                            style={chunk.highlight && highlightStyle}
-                        >
-                            {text}
-                        </Text>
-                    );
-            })}
-        </Text>
-    );
+    if (new_chunks.length > 0) {
+      return (
+          <Text style={style} {...props}>
+              {new_chunks.map((chunk, index) => {
+                  const text = textToHighlight.substr(chunk.start, chunk.end - chunk.start);
+                  return (!chunk.highlight)
+                      ? text
+                      : (
+                          <Text
+                              key={index}
+                              style={chunk.highlight && highlightStyle}
+                          >
+                              {text}
+                          </Text>
+                      );
+              })}
+          </Text>
+      );
+    }else {
+      return (
+          <Text style={style} {...props}>
+              {chunks.map((chunk, index) => {
+                  const text = textToHighlight.substr(chunk.start, chunk.end - chunk.start);
+                  return (!chunk.highlight)
+                      ? text
+                      : (
+                          <Text
+                              key={index}
+                              style={chunk.highlight && highlightStyle}
+                          >
+                              {text}
+                          </Text>
+                      );
+              })}
+          </Text>
+      );
+    }
 }
