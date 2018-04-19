@@ -37,7 +37,6 @@ export default function Highlighter({
         }
       }
     }
-
     if (new_chunks.length > 0) {
       return (
           <Text style={style} {...props}>
