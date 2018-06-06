@@ -38,6 +38,7 @@ And the `Highlighter` component will highlight all occurrences of search terms w
 | searchWords     | Array<String> |     ✓     | Array of search words                                                                                                   |
 | style           | Object        |           | Styles applied to the text wrapper                                                                                      |
 | textToHighlight | String        |     ✓     | Text to highlight matches in                                                                                            |
+| type | String        |     ✓     | Type                                                                                           |
 
 ## License
 MIT License - fork, modify and use however you want.
