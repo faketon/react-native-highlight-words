@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Text,View} from 'react-native';
 import {findAll} from 'highlight-words-core';
 import PropTypes from 'prop-types';
 
@@ -9,7 +9,8 @@ Highlighter.propTypes = {
     searchWords: PropTypes.arrayOf(PropTypes.string).isRequired,
     textToHighlight: PropTypes.string.isRequired,
     sanitize: PropTypes.func,
-    style: Text.propTypes.style
+    style: Text.propTypes.style,
+    type : PropTypes.string
 };
 
 /**
@@ -23,8 +24,34 @@ export default function Highlighter({
     textToHighlight,
     sanitize,
     style,
+    type,
     ...props
 }) {
+  if (type == 'notSearch' ) {
+    var new_text = []
+    new_text = textToHighlight.split("")
+
+    return (
+        <Text style={style} {...props}>
+            {new_text.map((text, index) => {
+                if (index < parseInt(new_text.length / 2)) {
+                  return(
+                        <Text
+                            key={index}
+                            style={highlightStyle}
+                        >
+                            {text}
+                        </Text>
+                  )
+                }else {
+                  return(
+                    text
+                  )
+                }
+            })}
+        </Text>
+    );
+  }else {
     const chunks = findAll({textToHighlight, searchWords, sanitize, autoEscape});
     var new_chunks = []
     var index = []
@@ -74,4 +101,5 @@ export default function Highlighter({
           </Text>
       );
     }
+  }
 }
